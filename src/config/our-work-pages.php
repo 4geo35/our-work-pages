@@ -5,6 +5,12 @@ return [
     "customOurWorkModel" => null,
     "customOurWorkModelObserver" => null,
 
+    // Controllers
+    "customOurWorkAdminController" => null,
+
+    // Components
+    "customAdminOurWorkIndexComponent" => null,
+
     // Policies
     "ourWorkPolicy" => \GIS\OurWorkPages\Policies\OurWorkPolicy::class,
     "ourWorkPolicyKey" => "our_works",

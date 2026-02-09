@@ -8,6 +8,8 @@ use GIS\OurWorkPages\Observers\OurWorkObserver;
 use GIS\UserManagement\Traits\ExpandPoliciesTrait;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
+use GIS\OurWorkPages\Livewire\Admin\OurWorks\IndexWire as AdminOurWorksIndexWire;
+use Livewire\Livewire;
 
 class OurWorkPagesServiceProvider extends ServiceProvider
 {
@@ -49,6 +51,11 @@ class OurWorkPagesServiceProvider extends ServiceProvider
 
     protected function addLivewireComponents(): void
     {
+        $component = config("our-work-pages.customAdminOurWorkIndexComponent");
+        Livewire::component(
+            "owp-admin-our-works-index",
+            $component ?? AdminOurWorksIndexWire::class
+        );
     }
 
     protected function bindInterfaces(): void
