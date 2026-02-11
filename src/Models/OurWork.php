@@ -22,6 +22,7 @@ class OurWork extends Model implements OurWorkInterface
 
         "date_from",
         "date_to",
+        "author_name",
 
         "published_at",
     ];

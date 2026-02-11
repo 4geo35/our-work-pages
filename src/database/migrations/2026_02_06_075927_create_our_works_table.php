@@ -23,6 +23,7 @@ return new class extends Migration
 
             $table->date("date_from")->nullable();
             $table->date("date_to")->nullable();
+            $table->string("author_name")->nullable();
 
             $table->unsignedBigInteger("priority")->default(0);
             $table->dateTime("published_at")->nullable();
