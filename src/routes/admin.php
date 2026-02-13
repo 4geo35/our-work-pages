@@ -12,5 +12,6 @@ Route::middleware(["web", "auth", "app-management"])
             ->group(function () {
                 $controllerClass = config("our-work-pages.customOurWorkAdminController") ?? OurWorkController::class;
                 Route::get("/", [$controllerClass, "index"])->name("index");
+                Route::get("/{work}", [$controllerClass, "show"])->name("show");
             });
     });

@@ -2,6 +2,7 @@
 
 namespace GIS\OurWorkPages\Livewire\Admin\OurWorks;
 
+use GIS\OurWorkPages\Interfaces\OurWorkInterface;
 use GIS\OurWorkPages\Models\OurWork;
 use GIS\OurWorkPages\Traits\OurWorkEditActions;
 use GIS\TraitsHelpers\Facades\BuilderActions;
@@ -59,7 +60,7 @@ class IndexWire extends Component
         $this->validate();
 
         $modelClass = config("our-work-pages.customOurWorkModel") ?? OurWork::class;
-        $modelClass::query()->create([
+        $model = $modelClass::query()->create([
             "title" => $this->title,
             "slug" => $this->slug,
             "short" => $this->short,
@@ -68,6 +69,10 @@ class IndexWire extends Component
             "date_to" => empty($this->dateTo) ? null : $this->dateTo,
             "author_name" => $this->authorName,
         ]);
+        /**
+         * @var OurWorkInterface $model
+         */
+        $model->livewireImage($this->cover);
 
         session()->flash("success", "Работа успешно добавлена");
         $this->closeData();

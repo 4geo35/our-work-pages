@@ -4,10 +4,15 @@ namespace GIS\OurWorkPages\Traits;
 
 use GIS\OurWorkPages\Interfaces\OurWorkInterface;
 use GIS\OurWorkPages\Models\OurWork;
+use GIS\TraitsHelpers\Traits\WireDeleteImageTrait;
 use Illuminate\Auth\Access\AuthorizationException;
+use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
+use Livewire\WithFileUploads;
 
 trait OurWorkEditActions
 {
+    use WithFileUploads, WireDeleteImageTrait;
+
     public bool $displayDelete = false;
     public bool $displayData = false;
 
@@ -22,6 +27,9 @@ trait OurWorkEditActions
     public string $dateTo = "";
     public string $authorName = "";
 
+    public TemporaryUploadedFile|null $cover = null;
+    public string|null $coverUrl = null;
+
     public function rules(): array
     {
         $uniqueCondition = "unique:our_works,slug";
@@ -33,6 +41,7 @@ trait OurWorkEditActions
             "dateFrom" => ["nullable", "date"],
             "dateTo" => ["nullable", "date"],
             "authorName" => ["nullable", "string", "max:250"],
+            "cover" => ["nullable", "image", "mimes:jpg,jpeg,png,webp"],
         ];
     }
 
@@ -45,6 +54,7 @@ trait OurWorkEditActions
             "dateFrom" => "Дата от",
             "dateTo" => "Дата до",
             "authorName" => "Имя автора",
+            "cover" => "Изображение",
         ];
     }
 
@@ -66,9 +76,13 @@ trait OurWorkEditActions
         $this->slug = $model->slug;
         $this->short = $model->short;
         $this->description = $model->description;
-        $this->dateFrom = $model->date_from;
-        $this->dateTo = $model->date_to;
-        $this->authorName = $model->authorName;
+        $this->dateFrom = (string) $model->date_from;
+        $this->dateTo = (string) $model->date_to;
+        $this->authorName = $model->author_name;
+        if ($model->image_id) {
+            $model->load("image");
+            $this->coverUrl = route("thumb-img", ["filename" => $model->image->filename, "template" => "original"]);
+        } else { $this->coverUrl = null; }
 
         $this->displayData = true;
     }
@@ -80,6 +94,8 @@ trait OurWorkEditActions
         if (! $this->checkAuth("update", $model)) { return; }
         $this->validate();
 
+        $slugHasChanged = $this->slug !== $model->slug;
+
         $model->update([
             "title" => $this->title,
             "slug" => $this->slug,
@@ -89,9 +105,16 @@ trait OurWorkEditActions
             "date_to" => empty($this->dateTo) ? null : $this->dateTo,
             "author_name" => $this->authorName,
         ]);
+        $model->livewireImage($this->cover);
 
         session()->flash("success", "Работа успешно обновлена");
         $this->closeData();
+        if (isset($this->work)) {
+            $this->work = $model;
+            if ($slugHasChanged) {
+                $this->redirectRoute("admin.our-works.show", ["work" => $this->work]);
+            }
+        }
     }
 
     public function closeDelete(): void
@@ -126,6 +149,9 @@ trait OurWorkEditActions
 
         session()->flash("success", "Работа успешно удалена");
         $this->closeDelete();
+        if (isset($this->work)) {
+            $this->redirectRoute("admin.our-works.index");
+        }
     }
 
     public function switchPublish(int $modelId): void
@@ -138,11 +164,17 @@ trait OurWorkEditActions
         $model->update([
             "published_at" => $model->published_at ? null : now(),
         ]);
+        if (isset($this->work)) { $this->work = $model; }
     }
 
     protected function resetFields(): void
     {
-        $this->reset("title", "slug", "short", "description", "dateFrom", "dateTo", "authorName", "workId");
+        $this->reset(
+            "title", "slug", "short", "description",
+            "dateFrom", "dateTo", "authorName",
+            "workId",
+            "cover", "coverUrl"
+        );
     }
 
     protected function checkAuth(string $action, OurWorkInterface $modelObject = null): bool

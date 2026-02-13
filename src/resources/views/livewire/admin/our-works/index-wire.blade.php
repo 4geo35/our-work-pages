@@ -6,4 +6,7 @@
             <x-tt::notifications.success />
         </div>
     </div>
+    @include("owp::admin.our-works.includes.table")
+    @include("owp::admin.our-works.includes.table-modals")
+    @include("owp::admin.our-works.includes.order-modal")
 </div>

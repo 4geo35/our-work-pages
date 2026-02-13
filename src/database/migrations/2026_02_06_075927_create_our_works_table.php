@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('our_works', function (Blueprint $table) {
             $table->id();
 
-            $table->unsignedBigInteger('image_id');
+            $table->unsignedBigInteger('image_id')->nullable();
 
             $table->string('title');
             $table->string('slug')->unique();
