@@ -10,6 +10,7 @@ return [
 
     // Components
     "customAdminOurWorkIndexComponent" => null,
+    "customAdminOurWorkShowComponent" => null,
 
     // Policies
     "ourWorkPolicy" => \GIS\OurWorkPages\Policies\OurWorkPolicy::class,

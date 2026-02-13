@@ -53,24 +53,6 @@
             </div>
 
             <div>
-                <label for="ourWorkDescription" class="flex justify-start items-center mb-2">
-                    Описание
-                    @include("tt::admin.description-button", ["id" => "ourWorkDescriptionHidden"])
-                </label>
-                @include("tt::admin.description-info", ["id" => "ourWorkDescriptionHidden"])
-                <textarea id="ourWorkDescription" class="form-control !min-h-52 {{ $errors->has('description') ? 'border-danger' : '' }}"
-                          rows="10"
-                          wire:model.live="description">
-                        {{ $description }}
-                    </textarea>
-                <x-tt::form.error name="description" />
-
-                <div class="prose prose-sm mt-indent-half">
-                    {!! \Illuminate\Support\Str::markdown($description) !!}
-                </div>
-            </div>
-
-            <div>
                 <label for="ourWorkDateFrom" class="inline-block mb-2">
                     Дата от
                 </label>
@@ -101,6 +83,24 @@
                        wire:loading.attr="disabled"
                        wire:model="authorName">
                 <x-tt::form.error name="authorName"/>
+            </div>
+
+            <div>
+                <label for="ourWorkDescription" class="flex justify-start items-center mb-2">
+                    Описание
+                    @include("tt::admin.description-button", ["id" => "ourWorkDescriptionHidden"])
+                </label>
+                @include("tt::admin.description-info", ["id" => "ourWorkDescriptionHidden"])
+                <textarea id="ourWorkDescription" class="form-control !min-h-52 {{ $errors->has('description') ? 'border-danger' : '' }}"
+                          rows="10"
+                          wire:model.live="description">
+                        {{ $description }}
+                    </textarea>
+                <x-tt::form.error name="description" />
+
+                <div class="prose prose-sm mt-indent-half">
+                    {!! \Illuminate\Support\Str::markdown($description) !!}
+                </div>
             </div>
 
             <div class="flex items-center space-x-indent-half">

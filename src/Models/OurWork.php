@@ -26,4 +26,18 @@ class OurWork extends Model implements OurWorkInterface
 
         "published_at",
     ];
+
+    public function getHumanFromAttribute(): string
+    {
+        $value = $this->date_from;
+        if (empty($value)) { return $value; }
+        return date_helper()->format($value, "d.m.Y");
+    }
+
+    public function getHumanToAttribute(): string
+    {
+        $value = $this->date_to;
+        if (empty($value)) { return $value; }
+        return date_helper()->format($value, "d.m.Y");
+    }
 }
