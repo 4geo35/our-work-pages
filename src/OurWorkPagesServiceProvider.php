@@ -43,6 +43,13 @@ class OurWorkPagesServiceProvider extends ServiceProvider
     {
         $owp = app()->config["our-work-pages"];
         $this->expandPolicies($owp, ["ourWorkPolicy"]);
+
+        $eb = app()->config["editable-blocks"];
+        $models = $eb["models"];
+        $models["our_works"] = [
+            "allowedTypes" => $owp["allowedBlocks"],
+        ];
+        app()->config["editable-blocks.models"] = $models;
     }
 
     protected function setPolicies(): void

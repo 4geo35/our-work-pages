@@ -1,6 +1,9 @@
 <?php
 
 return [
+    // Settings
+    "allowedBlocks" => [],
+
     // Models
     "customOurWorkModel" => null,
     "customOurWorkModelObserver" => null,
