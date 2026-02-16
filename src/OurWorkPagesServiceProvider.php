@@ -42,7 +42,7 @@ class OurWorkPagesServiceProvider extends ServiceProvider
     protected function expandConfiguration(): void
     {
         $owp = app()->config["our-work-pages"];
-        $this->expandPolicies($owp, ["ourWorkPolicy"]);
+        $this->expandPolicies($owp, ["ourWorkPolicy", "ourWorkLabelPolicy"]);
 
         $eb = app()->config["editable-blocks"];
         $models = $eb["models"];

@@ -5,8 +5,9 @@ namespace GIS\OurWorkPages\Policies;
 use App\Models\User;
 use GIS\OurWorkPages\Interfaces\OurWorkInterface;
 use GIS\UserManagement\Facades\PermissionActions;
+use GIS\UserManagement\Interfaces\PolicyPermissionInterface;
 
-class OurWorkPolicy
+class OurWorkPolicy implements PolicyPermissionInterface
 {
     const PERMISSION_KEY = "our_works";
     const VIEW_ALL = 2;

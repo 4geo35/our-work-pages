@@ -9,6 +9,7 @@ use GIS\OurWorkPages\Interfaces\OurWorkInterface;
 use GIS\TraitsHelpers\Traits\ShouldMarkdown;
 use GIS\TraitsHelpers\Traits\ShouldSlug;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class OurWork extends Model implements OurWorkInterface
 {
@@ -26,6 +27,12 @@ class OurWork extends Model implements OurWorkInterface
 
         "published_at",
     ];
+
+    public function labels(): BelongsToMany
+    {
+        $modelClass = config("our-work-pages.customOurWorkLabelModel") ?? OurWorkLabel::class;
+        return $this->belongsToMany($modelClass, "our_work_label", "label_id", "work_id");
+    }
 
     public function getHumanFromAttribute(): string
     {

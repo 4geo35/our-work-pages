@@ -12,18 +12,22 @@
         </button>
     </div>
 
-    <div class="flex items-center space-x-2">
+    <div class="flex items-center space-x-2 ml-indent-half">
         @can("create", config("our-work-pages.customOurWorkModel") ?? \GIS\OurWorkPages\Models\OurWork::class)
-            <button type="button" class="btn btn-primary px-btn-x-ico lg:px-btn-x ml-indent-half" wire:click="showCreate">
+            <button type="button" class="btn btn-primary px-btn-x-ico lg:px-btn-x" wire:click="showCreate">
                 <x-tt::ico.circle-plus/>
                 <span class="hidden lg:inline-block pl-btn-ico-text">Добавить</span>
             </button>
         @endcan
         @can("order", config("our-work-pages.customOurWorkModel") ?? \GIS\OurWorkPages\Models\OurWork::class)
-            <button type="button" class="btn btn-primary px-btn-x-ico lg:px-btn-x ml-indent-half" wire:click="showOrder">
+            <button type="button" class="btn btn-primary px-btn-x-ico lg:px-btn-x" wire:click="showOrder">
                 <x-tt::ico.bars />
                 <span class="hidden lg:inline-block pl-btn-ico-text">Порядок</span>
             </button>
         @endcan
+        <button type="button" class="btn btn-primary px-btn-x-ico lg:px-btn-x" wire:click="showList">
+            <x-owp::ico.new-label />
+            <span class="hidden lg:inline-block pl-btn-ico-text">Метки</span>
+        </button>
     </div>
 </div>
