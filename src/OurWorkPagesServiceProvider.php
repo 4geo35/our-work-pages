@@ -4,12 +4,15 @@ namespace GIS\OurWorkPages;
 
 use GIS\OurWorkPages\Interfaces\OurWorkInterface;
 use GIS\OurWorkPages\Models\OurWork;
+use GIS\OurWorkPages\Models\OurWorkLabel;
+use GIS\OurWorkPages\Observers\OurWorkLabelObserver;
 use GIS\OurWorkPages\Observers\OurWorkObserver;
 use GIS\UserManagement\Traits\ExpandPoliciesTrait;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use GIS\OurWorkPages\Livewire\Admin\OurWorks\IndexWire as AdminOurWorksIndexWire;
 use GIS\OurWorkPages\Livewire\Admin\OurWorks\ShowWire as AdminOurWorksShowWire;
+use GIS\OurWorkPages\Livewire\Admin\OurWorkLabels\ListWire as AdminOurWorkLabelsListWire;
 use Livewire\Livewire;
 
 class OurWorkPagesServiceProvider extends ServiceProvider
@@ -70,6 +73,12 @@ class OurWorkPagesServiceProvider extends ServiceProvider
             "owp-admin-our-works-show",
             $component ?? AdminOurWorksShowWire::class
         );
+
+        $component = config("our-work-pages.customAdminOurWorkLabelListComponent");
+        Livewire::component(
+            "owp-admin-our-work-labels-list",
+            $component ?? AdminOurWorkLabelsListWire::class
+        );
     }
 
     protected function bindInterfaces(): void
@@ -82,6 +91,10 @@ class OurWorkPagesServiceProvider extends ServiceProvider
     {
         $modelClass = config("our-work-pages.customOurWorkModel") ?? OurWork::class;
         $observerClass = config("our-work-pages.customOurWorkModelObserver") ?? OurWorkObserver::class;
+        $modelClass::observe($observerClass);
+
+        $modelClass = config("our-work-pages.customOurWorkLabelModel") ?? OurWorkLabel::class;
+        $observerClass = config("our-work-pages.customOurWorkLabelModelObserver") ?? OurWorkLabelObserver::class;
         $modelClass::observe($observerClass);
     }
 }

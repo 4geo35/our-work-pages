@@ -17,6 +17,7 @@ return [
     // Components
     "customAdminOurWorkIndexComponent" => null,
     "customAdminOurWorkShowComponent" => null,
+    "customAdminOurWorkLabelListComponent" => null,
 
     // Policies
     "ourWorkPolicy" => \GIS\OurWorkPages\Policies\OurWorkPolicy::class,

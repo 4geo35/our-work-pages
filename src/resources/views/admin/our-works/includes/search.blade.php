@@ -25,9 +25,12 @@
                 <span class="hidden lg:inline-block pl-btn-ico-text">Порядок</span>
             </button>
         @endcan
-        <button type="button" class="btn btn-primary px-btn-x-ico lg:px-btn-x" wire:click="showList">
-            <x-owp::ico.new-label />
-            <span class="hidden lg:inline-block pl-btn-ico-text">Метки</span>
-        </button>
+        @can("viewAny", config("our-work-pages.customOurWorkLabelModel") ?? \GIS\OurWorkPages\Models\OurWorkLabel::class)
+            <button type="button" class="btn btn-primary px-btn-x-ico lg:px-btn-x"
+                    x-data @click="$dispatch('show-label-list')">
+                <x-owp::ico.new-label />
+                <span class="hidden lg:inline-block pl-btn-ico-text">Метки</span>
+            </button>
+        @endcan
     </div>
 </div>
