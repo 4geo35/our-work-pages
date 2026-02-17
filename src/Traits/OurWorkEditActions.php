@@ -4,8 +4,10 @@ namespace GIS\OurWorkPages\Traits;
 
 use GIS\OurWorkPages\Interfaces\OurWorkInterface;
 use GIS\OurWorkPages\Models\OurWork;
+use GIS\OurWorkPages\Models\OurWorkLabel;
 use GIS\TraitsHelpers\Traits\WireDeleteImageTrait;
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Database\Eloquent\Collection;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 use Livewire\WithFileUploads;
 
@@ -29,6 +31,9 @@ trait OurWorkEditActions
 
     public TemporaryUploadedFile|null $cover = null;
     public string|null $coverUrl = null;
+
+    public Collection|null $labelList = null;
+    public array $labels = [];
 
     public function rules(): array
     {
@@ -83,8 +88,13 @@ trait OurWorkEditActions
             $model->load("image");
             $this->coverUrl = route("thumb-img", ["filename" => $model->image->filename, "template" => "original"]);
         } else { $this->coverUrl = null; }
+        $model->load("labels:id");
+        foreach ($model->labels as $label) {
+            $this->labels[] = $label->id;
+        }
 
         $this->displayData = true;
+        $this->setLabelList();
     }
 
     public function update(): void
@@ -106,6 +116,7 @@ trait OurWorkEditActions
             "author_name" => $this->authorName,
         ]);
         $model->livewireImage($this->cover);
+        $model->labels()->sync($this->labels);
 
         session()->flash("success", "Работа успешно обновлена");
         $this->closeData();
@@ -173,7 +184,8 @@ trait OurWorkEditActions
             "title", "slug", "short", "description",
             "dateFrom", "dateTo", "authorName",
             "workId",
-            "cover", "coverUrl"
+            "cover", "coverUrl",
+            "labelList", "labels"
         );
     }
 
@@ -202,5 +214,13 @@ trait OurWorkEditActions
             return null;
         }
         return $modelObject;
+    }
+
+    protected function setLabelList(): void
+    {
+        $modelClass = config("our-work-pages.customOurWorkLabelModel") ?? OurWorkLabel::class;
+        $this->labelList = $modelClass::query()
+            ->orderBy("priority")
+            ->get();
     }
 }

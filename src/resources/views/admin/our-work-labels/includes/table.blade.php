@@ -11,15 +11,16 @@
     </x-slot>
     <x-slot name="body">
         @foreach($labels as $key => $item)
+            @php($currentItemIsActive = $labelId === $item->id)
             @can("order", config("our-work-pages.customOurWorkLabelModel") ?? \GIS\OurWorkPages\Models\OurWorkLabel::class)
             <tr drag-item="{{ $item->id }}" drag-item-order="{{ $key }}" wire:key="{{ $item->id }}">
                 <td>
-                    <x-tt::ico.bars drag-grab class="text-secondary mr-indent cursor-grab" />
+                    <x-tt::ico.bars drag-grab class="text-secondary cursor-grab" />
                 </td>
             @else
             <tr wire:key="{{ $item->id }}">
             @endcan
-            @if ($displayData && $labelId === $item->id)
+            @if ($displayData && $currentItemIsActive)
                 <td colspan="3">
                     <form wire:submit.prevent="update" class="flex flex-col space-y-indent-half md:flex-row md:space-x-indent-half md:space-y-0">
                         <div>
@@ -43,7 +44,7 @@
                 <td>{{ $item->slug }}</td>
                 <td>
                     <div class="flex justify-center">
-                        @if ($displayDelete && $labelId === $item->id)
+                        @if ($displayDelete && $currentItemIsActive)
                             <button type="button" class="btn btn-sm btn-danger rounded-e-none px-btn-x-ico"
                                     wire:loading.attr="disabled" wire:click="confirmDelete">
                                 OK

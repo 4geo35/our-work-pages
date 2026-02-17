@@ -4,6 +4,7 @@
             <x-tt::table.heading class="text-left text-nowrap">Заголовок</x-tt::table.heading>
             <x-tt::table.heading class="text-left text-nowrap">Адресная строка</x-tt::table.heading>
             <x-tt::table.heading class="text-left text-nowrap">Дополнительно</x-tt::table.heading>
+            <x-tt::table.heading class="text-left text-nowrap">Метки</x-tt::table.heading>
             <x-tt::table.heading>Действия</x-tt::table.heading>
         </tr>
     </x-slot>
@@ -17,6 +18,13 @@
                         <li><span class="font-semibold">Дата от:</span> {{ $item->date_from }}</li>
                         <li><span class="font-semibold">Дата до:</span> {{ $item->date_to }}</li>
                         <li><span class="font-semibold">Автор:</span> {{ $item->author_name }}</li>
+                    </ul>
+                </td>
+                <td>
+                    <ul class="list-disc">
+                        @foreach($item->labels as $labelItem)
+                            <li>{{ $labelItem->title }}</li>
+                        @endforeach
                     </ul>
                 </td>
                 <td>

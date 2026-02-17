@@ -33,7 +33,8 @@ class IndexWire extends Component
     public function render(): View
     {
         $modelClass = config("our-work-pages.customOurWorkModel") ?? OurWork::class;
-        $query = $modelClass::query();
+        $query = $modelClass::query()
+            ->with("labels", "image");
         BuilderActions::extendLike($query, $this->searchTitle, "title");
         BuilderActions::extendPublished($query, $this->searchPublished);
         $query->orderBy("priority");
@@ -52,6 +53,7 @@ class IndexWire extends Component
         $this->resetFields();
         if (! $this->checkAuth("create")) { return; }
         $this->displayData = true;
+        $this->setLabelList();
     }
 
     public function store(): void
@@ -73,6 +75,7 @@ class IndexWire extends Component
          * @var OurWorkInterface $model
          */
         $model->livewireImage($this->cover);
+        $model->labels()->sync($this->labels);
 
         session()->flash("success", "Работа успешно добавлена");
         $this->closeData();

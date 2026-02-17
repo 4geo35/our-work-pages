@@ -53,6 +53,24 @@
             </div>
 
             <div>
+                <div class="inline-block mb-2">Метки</div>
+                @isset($labelList)
+                    <div class="space-y-2">
+                        @foreach($labelList as $labelItem)
+                            <div class="form-check">
+                                <input type="checkbox" wire:model="labels"
+                                       class="form-check-input" id="ourWorkLabel-{{ $labelItem->id }}"
+                                       value="{{ $labelItem->id }}">
+                                <label for="ourWorkLabel-{{ $labelItem->id }}" class="form-check-label">
+                                    {{ $labelItem->title }}
+                                </label>
+                            </div>
+                        @endforeach
+                    </div>
+                @endisset
+            </div>
+
+            <div>
                 <label for="ourWorkDateFrom" class="inline-block mb-2">
                     Дата от
                 </label>
