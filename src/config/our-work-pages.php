@@ -9,6 +9,9 @@ return [
 
     "queryLabelKey" => "label",
 
+    // Btn text
+    "showBtnText" => "Подробнее о проекте",
+
     // Settings
     "allowedBlocks" => [],
 
@@ -39,4 +42,9 @@ return [
     "ourWorkLabelPolicy" => \GIS\OurWorkPages\Policies\OurWorkLabelPolicy::class,
     "ourWorkLabelPolicyKey" => "our_work_labels",
     "ourWorkLabelPolicyTitle" => "Управление метками наших работ",
+
+    // Templates
+    "templates" => [
+        "our-work-teaser" => \GIS\OurWorkPages\Templates\OurWorkTeaser::class,
+    ],
 ];

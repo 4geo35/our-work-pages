@@ -2,6 +2,7 @@
 
 namespace GIS\OurWorkPages;
 
+use GIS\Fileable\Traits\ExpandTemplatesTrait;
 use GIS\OurWorkPages\Interfaces\OurWorkInterface;
 use GIS\OurWorkPages\Models\OurWork;
 use GIS\OurWorkPages\Models\OurWorkLabel;
@@ -18,7 +19,7 @@ use Livewire\Livewire;
 
 class OurWorkPagesServiceProvider extends ServiceProvider
 {
-    use ExpandPoliciesTrait;
+    use ExpandPoliciesTrait, ExpandTemplatesTrait;
 
     public function register(): void
     {
@@ -46,6 +47,7 @@ class OurWorkPagesServiceProvider extends ServiceProvider
     protected function expandConfiguration(): void
     {
         $owp = app()->config["our-work-pages"];
+        $this->expandTemplates($owp);
         $this->expandPolicies($owp, ["ourWorkPolicy", "ourWorkLabelPolicy"]);
 
         $eb = app()->config["editable-blocks"];

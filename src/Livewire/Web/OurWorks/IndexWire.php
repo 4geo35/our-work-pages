@@ -47,7 +47,7 @@ class IndexWire extends Component
                 fn($q) => $q->whereIn("slug", $this->searchLabel)
             );
         }
-        $query->with(["labels"]);
+        $query->with(["labels", "image"]);
         $query->orderBy("priority");
         $works = $query->paginate();
 
