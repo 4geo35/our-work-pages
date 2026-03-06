@@ -1,6 +1,14 @@
 <?php
 
 return [
+    "urlPrefix" => "our-works",
+    "pageTitle" => "Наши работы",
+
+    "useBreadcrumbs" => true,
+    "useH1" => true,
+
+    "queryLabelKey" => "label",
+
     // Settings
     "allowedBlocks" => [],
 
@@ -14,10 +22,14 @@ return [
     // Controllers
     "customOurWorkAdminController" => null,
 
+    "customOurWorkWebController" => null,
+
     // Components
     "customAdminOurWorkIndexComponent" => null,
     "customAdminOurWorkShowComponent" => null,
     "customAdminOurWorkLabelListComponent" => null,
+
+    "customWebOurWorkIndexComponent" => null,
 
     // Policies
     "ourWorkPolicy" => \GIS\OurWorkPages\Policies\OurWorkPolicy::class,

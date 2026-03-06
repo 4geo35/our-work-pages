@@ -13,6 +13,7 @@ use Illuminate\Support\ServiceProvider;
 use GIS\OurWorkPages\Livewire\Admin\OurWorks\IndexWire as AdminOurWorksIndexWire;
 use GIS\OurWorkPages\Livewire\Admin\OurWorks\ShowWire as AdminOurWorksShowWire;
 use GIS\OurWorkPages\Livewire\Admin\OurWorkLabels\ListWire as AdminOurWorkLabelsListWire;
+use GIS\OurWorkPages\Livewire\Web\OurWorks\IndexWire as WebOurWorksIndexWire;
 use Livewire\Livewire;
 
 class OurWorkPagesServiceProvider extends ServiceProvider
@@ -25,15 +26,15 @@ class OurWorkPagesServiceProvider extends ServiceProvider
 
         $this->mergeConfigFrom(__DIR__ . '/config/our-work-pages.php', 'our-work-pages');
 
-        $this->loadRoutesFrom(__DIR__ . '/routes/admin.php');
-        $this->loadRoutesFrom(__DIR__ . '/routes/web.php');
-
         $this->bindInterfaces();
     }
 
     public function boot(): void
     {
         $this->loadViewsFrom(__DIR__ . '/resources/views', 'owp');
+
+        $this->loadRoutesFrom(__DIR__ . '/routes/admin.php');
+        $this->loadRoutesFrom(__DIR__ . '/routes/web.php');
 
         $this->expandConfiguration();
         $this->observeModels();
@@ -78,6 +79,12 @@ class OurWorkPagesServiceProvider extends ServiceProvider
         Livewire::component(
             "owp-admin-our-work-labels-list",
             $component ?? AdminOurWorkLabelsListWire::class
+        );
+
+        $component = config("our-work-pages.customWebOurWorkIndexComponent");
+        Livewire::component(
+            "owp-web-our-works-index",
+            $component ?? WebOurWorksIndexWire::class
         );
     }
 
