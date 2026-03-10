@@ -9,6 +9,9 @@ return [
 
     "queryLabelKey" => "label",
 
+    "fullPageBlocks" => false, // Блоки на всю ширину
+    "fullAside" => true, // Тизер сбоку с полным описанием и картинкой
+
     // Btn text
     "showBtnText" => "Подробнее о проекте",
 
@@ -48,5 +51,7 @@ return [
         "our-work-teaser" => \GIS\OurWorkPages\Templates\OurWorkTeaser::class,
         "tablet-our-work-teaser" => \GIS\OurWorkPages\Templates\TabletOurWorkTeaser::class,
         "mobile-our-work-teaser" => \GIS\OurWorkPages\Templates\MobileOurWorkTeaser::class,
+
+        "our-work-aside" => \GIS\OurWorkPages\Templates\OurWorkAside::class,
     ],
 ];

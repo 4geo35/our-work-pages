@@ -3,6 +3,7 @@
 namespace GIS\OurWorkPages\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use GIS\EditableBlocks\Facades\BlockRenderActions;
 use GIS\Metable\Facades\MetaActions;
 use GIS\OurWorkPages\Interfaces\OurWorkInterface;
 use Illuminate\View\View;
@@ -19,7 +20,8 @@ class OurWorkController extends Controller
     {
         if (! $work->published_at) { abort(404); }
         $metas = MetaActions::renderByModel($work);
-        $blocks = $work->blocks()->orderBy("priority")->get();
-        return view("owp::web.our-works.show", compact('work', 'metas', 'blocks'));
+        $blocks = BlockRenderActions::getByModel($work);
+        $isFullPage = config("our-work-pages.fullPageBlocks");
+        return view("owp::web.our-works.show", compact('work', 'metas', 'blocks', 'isFullPage'));
     }
 }
