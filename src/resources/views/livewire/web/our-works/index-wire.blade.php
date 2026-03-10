@@ -3,7 +3,7 @@
 
     <div class="row">
         @foreach($works as $work)
-            <div class="col w-full md:w-1/2 mb-indent">
+            <div class="col w-full lg:w-1/2 mb-indent">
                 <x-owp::our-work.teaser :$work />
             </div>
         @endforeach

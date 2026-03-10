@@ -46,5 +46,7 @@ return [
     // Templates
     "templates" => [
         "our-work-teaser" => \GIS\OurWorkPages\Templates\OurWorkTeaser::class,
+        "tablet-our-work-teaser" => \GIS\OurWorkPages\Templates\TabletOurWorkTeaser::class,
+        "mobile-our-work-teaser" => \GIS\OurWorkPages\Templates\MobileOurWorkTeaser::class,
     ],
 ];
