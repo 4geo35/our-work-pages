@@ -9,7 +9,8 @@ return [
 
     "queryLabelKey" => "label",
 
-    "fullPageBlocks" => true, // Блоки на всю ширину
+    "showTeaserOnShowPage" => true, // Выводить тизер на странице просмотра, если выключить, то блоки будут на всю ширину
+    "fullPageBlocks" => false, // Блоки на всю ширину, если выбран этот вариант, то нужно ставить изображение, иначе фигня выйдет
     "fullAside" => true, // Тизер сбоку с полным описанием и картинкой, при отображении не на всю страницу
 
     // Btn text
@@ -53,5 +54,7 @@ return [
         "mobile-our-work-teaser" => \GIS\OurWorkPages\Templates\MobileOurWorkTeaser::class,
 
         "our-work-aside" => \GIS\OurWorkPages\Templates\OurWorkAside::class,
+
+        "our-work-full" => \GIS\OurWorkPages\Templates\OurWorkFull::class,
     ],
 ];

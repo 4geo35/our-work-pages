@@ -9,7 +9,7 @@
                 <source media="(min-width: 480px)"
                         srcset="{{ route('thumb-img', ['template' => "tablet-our-work-teaser", 'filename' => $work->image->filename]) }}">
                 <img src="{{ route("thumb-img", ["template" => "mobile-our-work-teaser", "filename" => $work->image->filename]) }}"
-                     class="rounded-base"
+                     class="rounded-base h-full object-cover object-center"
                      alt="">
             </picture>
         </div>
@@ -40,7 +40,7 @@
             @if ($work->date_from || $work->date_to)
                 <div class="flex flex-wrap xs:flex-nowrap mt-indent space-y-indent-xs xs:space-y-0 xs:space-x-indent-xs">
                     @if ($work->date_from)
-                        <div class="w-full xs:flex-1 p-indent-xs xs:space-y-indent-xs bg-light rounded-base">
+                        <div class="w-full xs:flex-1 p-indent-xs xs:space-y-indent-xs bg-body-bg rounded-base">
                             <div class="text-sm text-body/60">Дата начала работ:</div>
                             <div class="text-base xs:text-lg">
                                 {{ $work->human_from }}
@@ -48,7 +48,7 @@
                         </div>
                     @endif
                     @if ($work->date_to)
-                        <div class="w-full xs:flex-1 p-indent-xs xs:space-y-indent-xs bg-light rounded-base">
+                        <div class="w-full xs:flex-1 p-indent-xs xs:space-y-indent-xs bg-body-bg rounded-base">
                             <div class="text-sm text-body/60">Дата окончания работ:</div>
                             <div class="text-base xs:text-lg">
                                 {{ $work->human_to }}

@@ -21,7 +21,12 @@ class OurWorkController extends Controller
         if (! $work->published_at) { abort(404); }
         $metas = MetaActions::renderByModel($work);
         $blocks = BlockRenderActions::getByModel($work);
-        $isFullPage = config("our-work-pages.fullPageBlocks");
-        return view("owp::web.our-works.show", compact('work', 'metas', 'blocks', 'isFullPage'));
+        $showTeaser = config("our-work-pages.showTeaserOnShowPage");
+        if (! $showTeaser) { $isFullPage = true; }
+        else { $isFullPage = config("our-work-pages.fullPageBlocks"); }
+        return view(
+            "owp::web.our-works.show",
+            compact('work', 'metas', 'blocks', 'isFullPage', 'showTeaser')
+        );
     }
 }

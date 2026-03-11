@@ -21,4 +21,15 @@ class OurWorkLabel extends Model implements OurWorkLabelInterface
         $modelClass = config("our-work-pages.customOurWorkModel") ?? OurWork::class;
         return $this->belongsToMany($modelClass, "our_work_label", "work_id", "label_id");
     }
+
+    public function getIndexLinkAttribute(): string
+    {
+        return implode("", [
+            route("web.our-works.index"),
+            "?",
+            config("our-work-pages.queryLabelKey"),
+            "[0]=",
+            $this->slug
+        ]);
+    }
 }

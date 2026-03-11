@@ -3,9 +3,15 @@
     @include("owp::web.our-works.includes.show-breadcrumbs")
     @include("owp::web.our-works.includes.show-h1")
 
-    @if ($isFullPage)
-        @include("owp::web.our-works.includes.show-full")
+    @if ($showTeaser)
+        @if ($isFullPage)
+            @include("owp::web.our-works.includes.show-full")
+        @else
+            @include("owp::web.our-works.includes.show-thirds")
+        @endif
     @else
-        @include("owp::web.our-works.includes.show-thirds")
+        <div class="container">
+            @include("owp::web.our-works.includes.show-blocks")
+        </div>
     @endif
 </x-app-layout>

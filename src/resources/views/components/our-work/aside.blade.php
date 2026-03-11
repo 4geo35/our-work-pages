@@ -1,8 +1,8 @@
 @props(["work"])
 @php($fullData = config("our-work-pages.fullAside"))
-<div class="p-indent-xs lg:p-indent rounded-base bg-white">
+<div class="p-indent-xs xl:p-indent rounded-base bg-white">
     @if ($fullData && $work->image)
-        <div class="mb-indent lg:h-[164px] xl:h-[216px] 2xl:h-[275px]">
+        <div class="mb-indent xs:h-[200px] sm:h-[240px] md:h-[314px] lg:h-[182px] xl:h-[216px] 2xl:h-[275px]">
             <picture>
                 <source media="(min-width: 1024px)"
                         srcset="{{ route('thumb-img', ['template' => "our-work-aside", 'filename' => $work->image->filename]) }}">
@@ -11,7 +11,7 @@
                 <source media="(min-width: 480px)"
                         srcset="{{ route('thumb-img', ['template' => "tablet-our-work-teaser", 'filename' => $work->image->filename]) }}">
                 <img src="{{ route("thumb-img", ["template" => "mobile-our-work-teaser", "filename" => $work->image->filename]) }}"
-                     class="rounded-base"
+                     class="rounded-base h-full object-cover object-center"
                      alt="">
             </picture>
         </div>
@@ -22,7 +22,7 @@
     @if ($work->labels->count())
         <div class="flex flex-wrap">
             @foreach($work->labels as $workLabel)
-                <a href="{{ route("web.our-works.index") }}?{{ config("our-work-pages.queryLabelKey") }}[0]={{ $workLabel->slug }}"
+                <a href="{{ $workLabel->index_link }}"
                    class="btn btn-sm btn-outline-secondary mr-indent-xs mt-indent-xs">
                     {{ $workLabel->title }}
                 </a>
