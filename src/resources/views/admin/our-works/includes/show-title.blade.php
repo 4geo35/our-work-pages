@@ -4,7 +4,7 @@
     </h2>
 
     <div class="flex justify-end">
-        @if ($work->image_id)
+        @if ($work->image_id && $work->image)
             <a href="{{ route('thumb-img', ['filename' => $work->image->filename, 'template' => 'original']) }}"
                class="btn btn-primary px-btn-x-ico mr-indent-half" target="_blank">
                 <x-tt::ico.image/>

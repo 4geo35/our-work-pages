@@ -9,8 +9,8 @@ return [
 
     "queryLabelKey" => "label",
 
-    "fullPageBlocks" => false, // Блоки на всю ширину
-    "fullAside" => true, // Тизер сбоку с полным описанием и картинкой
+    "fullPageBlocks" => true, // Блоки на всю ширину
+    "fullAside" => true, // Тизер сбоку с полным описанием и картинкой, при отображении не на всю страницу
 
     // Btn text
     "showBtnText" => "Подробнее о проекте",
