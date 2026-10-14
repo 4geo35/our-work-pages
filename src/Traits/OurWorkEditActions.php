@@ -189,7 +189,7 @@ trait OurWorkEditActions
         );
     }
 
-    protected function checkAuth(string $action, OurWorkInterface $modelObject = null): bool
+    protected function checkAuth(string $action, ?OurWorkInterface $modelObject = null): bool
     {
         try {
             $modelClass = config("our-work-pages.customOurWorkModel") ?? OurWork::class;

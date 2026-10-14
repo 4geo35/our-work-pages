@@ -183,7 +183,7 @@ class ListWire extends Component
         return $model;
     }
 
-    protected function checkAuth(string $action, OurWorkLabelInterface $modelObject = null): bool
+    protected function checkAuth(string $action, ?OurWorkLabelInterface $modelObject = null): bool
     {
         try {
             $modelClass = config("our-work-pages.customOurWorkLabelModel") ?? OurWorkLabel::class;
